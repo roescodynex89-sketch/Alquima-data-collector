@@ -56,28 +56,29 @@ YF_TICKERS = {
 
 # ---- Card 5 (News Brief / Multi-LLM Fallback) ----
 
-# Google AI Studio
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
 
-# Groq API
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 
-# Ordered provider fallback
+GEMINI_MODEL = os.getenv(
+    "GEMINI_MODEL",
+    "gemini-3.8-flash",
+)
+
+# Provider priority: successful Qwen first.
 NEWS_LLM_PROVIDERS = [
-    ("gemini", "gemini-3.8-flash"),
-    ("groq", "openai/gpt-oss-120b"),
     ("groq", "qwen/qwen3.8-27b"),
-    ("gemini", "gemini-3.5-flash-lite"),
+    ("groq", "openai/gpt-oss-120b"),
     ("groq", "openai/gpt-oss-20b"),
+    ("gemini", GEMINI_MODEL),
 ]
 
-# Retry configuration
-LLM_RETRY_DELAYS = (0, 5, 15)
 LLM_TIMEOUT = 90
+LLM_RETRY_DELAYS = (0, 5)
 
-# News slot configuration
 SLOT_HOURS = 12
 SUMMARY_KEEP_DAYS = 7
+
 NEWS_PER_FEED = 15
 NEWS_MAX_PER_CATEGORY = 20
