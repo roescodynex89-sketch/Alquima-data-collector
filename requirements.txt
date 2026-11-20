@@ -4,3 +4,4 @@ yfinance
 tzdata
 python-dotenv
 psycopg[binary]
+feedparser

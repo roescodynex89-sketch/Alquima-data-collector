@@ -19,3 +19,13 @@ def _get_session():
 
 def get(url, params=None, headers=None, timeout=30):
     return _get_session().get(url, params=params, headers=headers, timeout=timeout)
+
+def post(url, params=None, headers=None, json=None, timeout=60):
+    """No automatic retry for POST; callers handle their own retries."""
+    return _get_session().post(
+        url,
+        params=params,
+        headers=headers,
+        json=json,
+        timeout=timeout,
+    )
